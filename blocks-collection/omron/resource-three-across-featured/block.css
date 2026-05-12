@@ -1,7 +1,0 @@
-@layer components {
-	.resource-three-across-featured {
-		.items {
-			@apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 ~gap-[1.25rem]/[1.5rem];
-		}
-	}
-}
