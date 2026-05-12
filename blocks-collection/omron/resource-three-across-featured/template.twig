@@ -1,0 +1,80 @@
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }} bg-{{ fields.bg }}">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "st-xl" %}
+	{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-xxl" %}
+
+	<div class="container">
+		<div class="{{ pt }} {{ pb }}">
+			<div class="flex flex-col ~gap-[2.25rem]/[3rem]">
+				<div class="flex max-md:flex-col gap-[1.5rem] justify-between md:items-end">
+					{% if fields.heading %}
+						<div class="flex-1 max-w-[39.25rem]">
+							{% include 'components/heading.twig' with {
+                                'class': 'main-title',
+                                'value': fields.heading.value, 
+                                'type': fields.heading.type != "default" ? fields.heading.type : "h3",
+                                'has_custom_style': fields.heading.has_custom_style,
+                                'style': fields.heading.style,
+                                'to_words': true
+                            } %}
+						</div>
+					{% endif %}
+
+					{% include 'components/cta.twig' with {
+                        'class' : 'filled blue shrink-0',
+                        'cta': fields.cta, 
+                        'icon': true,
+                    } %}
+				</div>
+
+				{% if fields.source == 'blogs' and fields.items_blog|length %}
+					<div class="items">
+						{% for index, item in fields.items_blog %}
+							{% set id = item.ID %}
+							{% set title = item.post_title %}
+							{% set post_date = item.post_date|date("n/j/Y") %}
+							{% set image = function("get_post_thumbnail_id", id) %}
+							{% set permalink = function("get_permalink", id) %}
+
+							{% include 'components/blog-card.twig' with {
+                                "cardClass": "resource-three-feature",
+                                "title": title,
+                                "permalink": permalink,
+                                "image": image,
+                                "date": post_date,
+                            } %}
+						{% endfor %}
+					</div>
+				{% endif %}
+
+				{% if fields.source == 'manual' and fields.items|length %}
+					<div class="items">
+						{% for index, item in fields.items %}
+							{% set title = item.title %}
+                            {% set eyebrow = item.eyebrow %}
+							{% set post_date = item.date %}
+							{% set image = item.image %}
+							{% set permalink = item.permalink ?: "#" %}
+
+							{% include 'components/blog-card.twig' with {
+                                "cardClass": "resource-three-feature",
+                                "title": title,
+                                "eyebrow": eyebrow,
+                                "date": post_date,
+                                "permalink": permalink,
+                                "image": image,
+                            } %}
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endcache %}

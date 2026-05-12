@@ -1,0 +1,65 @@
+@layer components {
+    .st-xxl {
+        @apply ~pt-[5rem]/[9rem];
+    }
+    
+    .sb-xxl {
+        @apply ~pb-[5rem]/[9rem];
+    }
+
+	.st-xl {
+        @apply ~pt-[4rem]/[6rem];
+    }
+    
+    .sb-xl {
+        @apply ~pb-[4rem]/[7.25rem];
+    }
+    
+    .st-lg {
+        @apply ~pt-[3rem]/[4rem];
+    }
+    
+    .sb-lg {
+        @apply ~pb-[3rem]/[4rem];
+    }
+    
+    .st-md {
+        @apply ~pt-[2.25rem]/[3rem];
+    }
+    
+    .sb-md {
+        @apply ~pb-[2.25rem]/[3rem];
+    }
+
+    .st-sm {
+        @apply ~pt-[1.5rem]/[2.25rem];
+    }
+    
+    .sb-sm {
+        @apply ~pb-[1.5rem]/[2.25rem];
+    }
+    
+    .st-xs {
+        @apply ~pt-[2.25rem]/[3rem];
+    }
+    
+    .sb-xs {
+        @apply ~pb-[2.25rem]/[3rem];
+    }
+
+    .st-xxs {
+        @apply pt-[0.75rem];
+    }
+    
+    .sb-xxs {
+        @apply pb-[0.75rem];
+    }
+    
+    .st-none {
+        @apply !pt-0;
+    }
+    
+    .sb-none {
+        @apply !pb-0;
+    }
+}

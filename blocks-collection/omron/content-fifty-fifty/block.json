@@ -1,0 +1,10 @@
+{
+	"name": "content-fifty-fifty",
+	"title": "Content 50-50",
+    "viewScript": ["file:./script.js"],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

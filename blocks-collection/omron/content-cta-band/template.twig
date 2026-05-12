@@ -1,0 +1,58 @@
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }} bg-{{ fields.bg }}">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "st-xl" %}
+	{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-xl" %}
+
+	<div class="container">
+		<div class="{{ pt }} {{ pb }}">
+			<div class="box bg-blue rounded-[0.5rem] overflow-hidden relative ~px-[1.5rem]/[3rem] opacity-0 invisible">
+				<div class="max-w-[34.0625rem] flex flex-col ~gap-[1.25rem]/[1.5rem] relative z-[3] ~py-[4rem]/[6rem]">
+					{% if fields.heading %}
+						{% include 'components/heading.twig' with {
+                            'class': 'main-title text-white',
+                            'value': fields.heading.value, 
+                            'type': fields.heading.type != "default" ? fields.heading.type : "h4",
+                            'has_custom_style': fields.heading.has_custom_style,
+                            'style': fields.heading.style,
+                            'to_words': true
+                        } %}
+					{% endif %}
+
+					{% if fields.paragraph %}
+						<p class="lg text-white">{{ fields.paragraph }}</p>
+					{% endif %}
+
+					{% if fields.ctas|length %}
+						<div class="flex flex-wrap gap-[0.75rem]">
+							{% for cta in fields.ctas %}
+								{% include 'components/cta.twig' with {
+                                    'class': cta.type == 'filled' ? 'filled white' : 'has-border white',
+                                    'cta': cta.link, 
+                                    'icon': true,
+                                } %}
+							{% endfor %}
+						</div>
+					{% endif %}
+				</div>
+
+				<div class="box-overlay z-[2] absolute top-0 left-0 h-full w-[130%] lg:w-full"></div>
+
+				{% if fields.image %}
+					<div class="absolute top-0 h-full right-0 w-full max-w-[64rem] center-y">
+						{% include 'components/image.twig' with {
+                            'image': fields.image,
+                            'size': [1024, 414],
+                        } %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endcache %}

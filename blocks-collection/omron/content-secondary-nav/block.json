@@ -1,0 +1,11 @@
+{
+	"name": "content-secondary-nav",
+	"title": "Content Secondary Nav",
+    "viewScript": ["file:./script.js"],
+    "viewStyle": [],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

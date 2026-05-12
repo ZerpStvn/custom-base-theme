@@ -1,0 +1,68 @@
+{# {{ function('dd', fields) }} #}
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+<section class="{{ block.slug }}">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	<div class="w-full relative" data-speed="clamp(0.6)">
+		<div class="w-full relative z-[2]">
+			<div class="container">
+				<div class="pt-[23.4svh] ~pb-[5rem]/[3rem] flex flex-col min-h-[100svh] justify-between gap-[2rem]">
+					<div class="max-w-[41.18rem]">
+						{% if fields.heading %}
+							{% set words = fields.heading|split(' ') %}
+							<h1 class="main-title text-white flex flex-wrap">
+								{% for word in words %}
+									<span class="outer-word">
+										<span class="inner-word">{{ word }}&nbsp;</span>
+									</span>
+								{% endfor %}
+							</h1>
+						{% endif %}
+					</div>
+
+					<div class="flex flex-col ~gap-[1.25rem]/[1.5rem]">
+						{% if fields.paragraph %}
+							{% set text = "i am pretty" %}
+							{% set words = fields.paragraph|split(' ') %}
+							<p class="main-para text-white max-w-[25.625rem] flex flex-wrap">
+								<span class="w-[3.125rem] shrink-0"></span>
+								{% for word in words %}
+									<span class="outer-word">
+										<span class="inner-word">{{ word }}&nbsp;</span>
+									</span>
+								{% endfor %}
+							</p>
+						{% endif %}
+
+						{% include 'components/cta.twig' with {
+                        'class' : 'filled white',
+                        'cta': fields.cta, 
+                        'icon': true,
+                    } %}
+					</div>
+				</div>
+			</div>
+
+			<div class="ticker translate-x-full absolute bottom-0 right-0 h-[1.875rem] w-[40.93rem]">
+				<svg class="h-full w-auto" width="655" height="31" viewbox="0 0 655 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<line x1="655" y1="15.5" x2="-1.31134e-06" y2="15.4999" stroke="url(#paint0_linear_5996_20934)" stroke-width="30" stroke-dasharray="3 7"/>
+					<defs>
+						<linearGradient id="paint0_linear_5996_20934" x1="655" y1="16.5" x2="-3.68584e-06" y2="13.5" gradientunits="userSpaceOnUse">
+							<stop stop-color="#6AFF96" stop-opacity="0"/>
+							<stop offset="1" stop-color="#6AFF96"/>
+						</linearGradient>
+					</defs>
+				</svg>
+			</div>
+		</div>
+
+		{% if fields.vimeo_video_id %}
+			<div class="video-container" data-video-id="{{ fields.vimeo_video_id }}">
+				<div class="gradient-bg"></div>
+			</div>
+		{% endif %}
+	</div>
+</section>
+{% endcache %}

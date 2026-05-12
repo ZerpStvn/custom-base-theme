@@ -1,0 +1,11 @@
+{
+	"name": "hero-sticky-scroll",
+	"title": "Hero Sticky Scroll",
+    "viewScript": ["file:./script.js"],
+    "viewStyle": [],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

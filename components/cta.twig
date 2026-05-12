@@ -1,0 +1,19 @@
+{#
+cta: (required) Link acf field
+class: (optional) CTA custom classes
+aria_label: (optional) ARIA Label, defaults to link_title
+#}
+{% if cta %}
+	{% set link_url = cta.url ?: "#" %}
+	{% set link_title = cta.title %}
+	{% set link_target = cta.target ?: "_self" %}
+
+  <a class="btn {{ class ? class }} {{ icon ? "has-arrow" }}" type="button" href="{{ link_url }}" target="{{ link_target }}" aria-label="Go to {{ aria_label ?? link_title }}">
+		{% if icon %}
+      {% include 'snippets/cta-icon.twig' with {
+        'class' : icon_class
+      } %}
+		{% endif %}
+		<p>{{ link_title }}</p>
+	</a>
+{% endif %}

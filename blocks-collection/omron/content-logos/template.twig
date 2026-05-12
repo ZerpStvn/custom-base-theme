@@ -1,0 +1,51 @@
+{# {{ function('dd', fields) }} #}
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }} bg-{{ fields.bg }}">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "st-xxl" %}
+	{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-xl" %}
+
+	<div class="{{ pt }} {{ pb }} flex flex-col ~gap-[1.5rem]/[2.25rem] items-center">
+		<div class="container flex justify-center">
+			{% if fields.heading %}
+				<p class="lg text-center">{{ fields.heading }}</p>
+			{% endif %}
+		</div>
+
+		{% if fields.logos|length %}
+			<div class="marquee">
+				{% for i in 1..2 %}
+					<div class="marquee__content">
+						{% for i in 1..2 %}
+							{% for logo in fields.logos %}
+								{% if logo.image %}
+									<a href="{{ logo.link ?: "#" }}" target="_blank" rel="nofollow noreferrer noopen" class="item">
+										{% include 'components/image.twig' with {
+                                            'image': logo.image,
+                                            'class': 'object-contain h-full w-full',
+                                            'size': "full",
+                                        } %}
+									</a>
+								{% endif %}
+							{% endfor %}
+						{% endfor %}
+					</div>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+		<div class="container flex justify-center">
+			{% include 'components/cta.twig' with {
+                'class' : 'filled blue',
+                'cta': fields.cta, 
+                'icon': true,
+            } %}
+		</div>
+	</div>
+</section>
+
+{% endcache %}

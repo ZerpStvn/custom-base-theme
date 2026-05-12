@@ -1,0 +1,123 @@
+{# {{ function('dd', fields) }} #}
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }} bg-{{ fields.bg }}">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "st-xxl" %}
+	{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-xxl" %}
+
+	<div class="container">
+		<div class="{{ pt }} {{ pb }}">
+			<div class="flex flex-col ~gap-[3rem]/[4rem]">
+				<div class="flex max-md:flex-col ~gap-[3.5rem]/[3.625rem]">
+					{% if fields.heading %}
+						{% include 'components/heading.twig' with {
+                            'class': 'main-title flex-1 h-fit',
+                            'value': fields.heading.value, 
+                            'type': fields.heading.type != "default" ? fields.heading.type : "h3",
+                            'has_custom_style': fields.heading.has_custom_style,
+                            'style': fields.heading.style,
+                            'to_words': true
+                        } %}
+					{% endif %}
+
+					{% if fields.paragraph or fields.cta %}
+						<div class="flex flex-1 flex-col ~gap-[1.25rem]/[1.5rem]">
+							{% if fields.paragraph %}
+								<p>{{ fields.paragraph }}</p>
+							{% endif %}
+
+							{% include 'components/cta.twig' with {
+                                'class' : 'filled blue',
+                                'cta': fields.cta, 
+                                'icon': true,
+                            } %}
+						</div>
+					{% endif %}
+				</div>
+
+				{% if fields.source == 'blogs' and fields.items_blog|length %}
+					<div class="items">
+						{% for index, item in fields.items_blog %}
+							{% set id = item.ID %}
+							{% set title = item.post_title %}
+							{% set image = function("get_post_thumbnail_id", id) %}
+							{% set permalink = function("get_permalink", id) %}
+
+							<div class="item {{ index == 0 ? " active" }}">
+								<div class="item-image">
+									<div class="xl:pr-[12.625rem] h-full w-full">
+										<div class="relative h-full w-full">
+											{% include 'components/image.twig' with {
+                                                'image': image,
+                                                'class': "absolute center-y left-0 ~h-[14.25rem]/[19rem] w-full rounded-[0.5rem] overflow-hidden",
+                                                'size': [655, 655],
+                                            } %}
+										</div>
+									</div>
+								</div>
+
+								<div class="item-content">
+									<a class="flex flex-col gap-[0.75rem] w-full" href="{{ permalink }}">
+										{% include 'components/eyebrow.twig' with { 'text': 'Blog' } %}
+
+										<div class="flex ~gap-[1.5rem]/[2.25rem] items-end max-md:flex-col">
+											<h5>{{ title }}</h5>
+											<svg class="shrink-0 w-[1rem] h-[1rem]" width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+												<path d="M8 1.3335L14.6667 8.00016L8 14.6668M0 8.00016H14.302" stroke="#262626" stroke-width="1.5" stroke-miterlimit="10"/>
+											</svg>
+										</div>
+									</a>
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				{% endif %}
+
+				{% if fields.source == 'manual' and fields.items|length %}
+					<div class="items">
+						{% for index, item in fields.items %}
+							<div class="item {{ index == 0 ? " active" }}">
+								<div class="item-image">
+									<div class="xl:pr-[12.625rem] h-full w-full">
+										<div class="relative h-full w-full">
+											{% include 'components/image.twig' with {
+                                                'image': item.image,
+                                                'class': "absolute center-y left-0 ~h-[14.25rem]/[19rem] w-full rounded-[0.5rem] overflow-hidden",
+                                                'size': [655, 655],
+                                            } %}
+										</div>
+									</div>
+								</div>
+
+								<div class="item-content">
+									{% if item.cta %}
+										{% set link_url = item.cta.url ?: "#" %}
+										{% set link_title = item.cta.title %}
+										{% set link_target = item.cta.target ?: "_self" %}
+
+										<a class="flex flex-col gap-[0.75rem] w-full" href="{{ link_url }}" target="{{ link_target }}">
+											{% include 'components/eyebrow.twig' with { 'text': item.eyebrow } %}
+
+											<div class="flex ~gap-[1.5rem]/[2.25rem] items-end max-md:flex-col">
+												<h5>{{ link_title }}</h5>
+												<svg class="shrink-0 w-[1rem] h-[1rem]" width="16" height="16" viewbox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M8 1.3335L14.6667 8.00016L8 14.6668M0 8.00016H14.302" stroke="#262626" stroke-width="1.5" stroke-miterlimit="10"/>
+												</svg>
+											</div>
+										</a>
+									{% endif %}
+								</div>
+							</div>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endcache %}

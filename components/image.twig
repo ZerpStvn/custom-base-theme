@@ -1,0 +1,11 @@
+{% if image %}
+	{{
+        function('wp_get_attachment_image', image, size ?: "full", false, {
+            'class': class ?: '',
+            'loading': loading ?: 'lazy',
+            'fetchpriority': fetchpriority ?: 'auto',
+            'decoding': decoding ?: 'async',
+            'alt': function('get_the_title', image)
+        })
+    }}
+{% endif %}

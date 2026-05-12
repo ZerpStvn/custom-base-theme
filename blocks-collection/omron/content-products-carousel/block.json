@@ -1,0 +1,10 @@
+{
+	"name": "content-products-carousel",
+	"title": "Content Products Carousel",
+    "viewScript": ["file:./script.js"],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

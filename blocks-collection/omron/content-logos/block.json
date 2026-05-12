@@ -1,0 +1,9 @@
+{
+	"name": "content-logos",
+	"title": "Content Logos",
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

@@ -1,0 +1,25 @@
+@layer components {
+	.content-logos {
+		.marquee {
+			@apply flex w-full;
+
+			&__content {
+				@apply flex shrink-0;
+				animation: scroll 60s linear infinite;
+			}
+
+			@keyframes scroll {
+				0% {
+					transform: translateX(0);
+				}
+				100% {
+					transform: translateX(-100%);
+				}
+			}
+		}
+
+		.item {
+			@apply flex items-center justify-center w-[12.125rem] h-[5.75rem] transition-transform will-change-transform hover:scale-[1.2] duration-200 ease-[ease];
+		}
+	}
+}

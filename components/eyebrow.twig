@@ -1,0 +1,6 @@
+{% if text %}
+	<div class="flex gap-[0.5rem] items-center {{ class is defined ? class }}">
+		<div class="w-[0.5rem] h-[0.5rem] {{ color is defined ? color : "bg-black" }}"></div>
+		<small class="{{ textClass is defined ? textClass : "text-black" }}">{{ text }}</small>
+	</div>
+{% endif %}

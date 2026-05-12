@@ -1,0 +1,27 @@
+@layer components {
+	.hero-full-width-image {
+		@apply bg-black;
+
+		.gradient-bg {
+			@apply absolute top-0 left-0 h-full w-full z-[2];
+			background: rgba(0, 0, 0, 0.5);
+		}
+
+		.media-container {
+			@apply absolute top-0 left-0 h-full w-full pointer-events-none bg-[#000] z-[1] overflow-hidden opacity-0 invisible translate-x-[60%];
+
+			&.image {
+			}
+
+			&.video {
+				iframe {
+					@apply absolute center-xy max-w-[unset] w-full aspect-video;
+					/* height: calc((100dvw * 9) / 16); */
+					min-height: 100svh;
+					width: calc((100svh * 22) / 9);
+					min-height: 100%;
+				}
+			}
+		}
+	}
+}

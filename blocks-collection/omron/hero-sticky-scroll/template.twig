@@ -1,0 +1,87 @@
+{# {{ function('dd', fields) }} #}
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+{% if fields.items|length %}
+	<section class="{{ block.slug }} bg-{{ fields.bg }}">
+		{% if block.anchor %}
+			<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+		{% endif %}
+
+		{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "~pt-[6.25rem]/[8.25rem]" %}
+		{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-lg" %}
+
+		<div class="container">
+			<div class="{{ pt }} {{ pb }}">
+				<div class="items">
+					<div class="item-content">
+						<div class="item-content-inner">
+							<div class="flex flex-col gap-[1.25rem]">
+								{% if fields.heading %}
+									{% include 'components/heading.twig' with {
+                                        'class': 'main-title',
+                                        'value': fields.heading.value, 
+                                        'type': fields.heading.type != "default" ? fields.heading.type : "h1",
+                                        'has_custom_style': fields.heading.has_custom_style,
+                                        'style': fields.heading.style,
+                                        'to_words': true
+                                    } %}
+								{% endif %}
+
+								{% if fields.paragraph %}
+									<p class="~indent-[0rem]/[3.75rem]">{{ fields.paragraph }}</p>
+								{% endif %}
+							</div>
+
+							<div class="item-texts-outer">
+                                {% for index, item in fields.items %}
+                                    <div class="item-group">
+                                        <div class="item-thumb">
+                                            {% include 'components/image.twig' with {
+                                                'image': item.image,
+                                                'size': [288, 184],
+                                            } %}
+                                        </div>
+
+                                        <div class="item-text {{ index == 0 ? " active" }}" data-index="{{ index }}">
+                                            <div class="flex gap-[1.5rem]">
+                                                <small class="text-black-60 relative top-[0.5rem]">{{ loop.index <= 9 ? '0' ~ loop.index : loop.index }}</small>
+
+                                                {% if item.title %}
+                                                    <h5>{{ item.title }}</h5>
+                                                {% endif %}
+                                            </div>
+
+                                            {% if item.description %}
+                                                <p>{{ item.description }}</p>
+                                            {% endif %}
+
+                                            {% include 'components/cta.twig' with {
+                                                'class' : 'filled blue',
+                                                'cta': item.cta, 
+                                                'icon': true,
+                                            } %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+							</div>
+						</div>
+					</div>
+
+					<div class="item-images">
+						{% for index, item in fields.items %}
+							<div class="item-image {{ index == 0 ? " active" }}" data-index="{{ index }}">
+                                {% include 'components/image.twig' with {
+                                    'image': item.image,
+                                    'class': "absolute center-xy h-full w-full object-cover",
+                                    'size': [660, 705],
+                                } %}
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endif %}
+
+{% endcache %}

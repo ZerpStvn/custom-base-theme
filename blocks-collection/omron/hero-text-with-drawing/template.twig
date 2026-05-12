@@ -1,0 +1,43 @@
+{# {{ function('dd', fields) }} #}
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }} bg-{{ fields.bg }}">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+    
+	<div class="container">
+		<div class="~pt-[7.25rem]/[10.25rem]">
+			<div class="flex max-md:flex-col gap-[1.625rem] lg:gap-[6.25rem] 2xl:gap-[22.875rem] justify-between">
+				<div class="flex flex-col ~gap-[1.25rem]/[1.5rem] sm:max-w-[27rem] md:pb-[6rem]">
+					{% if fields.heading %}
+						{% include 'components/heading.twig' with {
+                            'class': 'main-title',
+                            'value': fields.heading.value, 
+                            'type': fields.heading.type != "default" ? fields.heading.type : "h1",
+                            'has_custom_style': fields.heading.has_custom_style,
+                            'style': fields.heading.style,
+                            'to_words': true
+                        } %}
+					{% endif %}
+
+					{% if fields.paragraph %}
+						<p class="~indent-[0rem]/[3.75rem]">{{ fields.paragraph }}</p>
+					{% endif %}
+				</div>
+
+                {% if fields.image %}
+                    <div class="parallax max-md:w-full max-md:h-[5.875rem] md:basis-[32.875rem] relative md:self-stretch">
+                        {% include 'components/image.twig' with {
+                            'image': fields.image,
+                            'class': 'w-full md:min-h-[20.375rem] object-top h-auto absolute top-0 left-0 object-contain opacity-40',
+                            'size': [546, 648],
+                        } %}
+                    </div>
+                {% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endcache %}

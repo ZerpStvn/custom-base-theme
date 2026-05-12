@@ -1,0 +1,11 @@
+{
+	"name": "hero-homepage",
+	"title": "Hero Homepage",
+    "viewScript": ["file:./script.js"],
+    "viewStyle": [],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

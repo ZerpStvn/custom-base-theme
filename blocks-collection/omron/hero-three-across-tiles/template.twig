@@ -1,0 +1,87 @@
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }} bg-{{ fields.bg }}">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "~pt-[7.25rem]/[10.25rem]" %}
+	{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-xl" %}
+
+	<div class="container">
+		<div class="{{ pt }} {{ pb }}">
+			<div class="flex flex-col ~gap-[2.25rem]/[3rem]">
+				<div class="flex flex-col ~gap-[1.25rem]/[1.5rem] max-w-[48.375rem]">
+					{% if fields.heading %}
+						{% include 'components/heading.twig' with {
+                            'class': 'main-title',
+                            'value': fields.heading.value, 
+                            'type': fields.heading.type != "default" ? fields.heading.type : "h1",
+                            'has_custom_style': fields.heading.has_custom_style,
+                            'style': fields.heading.style,
+                            'to_words': true
+                        } %}
+					{% endif %}
+
+					{% if fields.paragraph %}
+						<p class="~indent-[0rem]/[3.75rem]">{{ fields.paragraph }}</p>
+					{% endif %}
+				</div>
+
+				{% if fields.items|length %}
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ~gap-[1.25rem]/[1.5rem]">
+						{% for index, item in fields.items %}
+							<div class="item">
+								<div class="item-inner">
+									<div class="item-image">
+										<div class="~w-[15.25rem]/[15.875rem] ~h-[13.625rem]/[17.75rem] relative z-[2]">
+											{% include 'components/image.twig' with {
+                                                'image': item.image,
+                                                'class': "object-contain relative z-[2]",
+                                                'size': [254, 284],
+                                            } %}
+
+											<div class="item-orb">
+												<img class="object-contain" src="{{ function("webp", "hero-three-card-orb") }}" loading="lazy" alt="grid background">
+											</div>
+										</div>
+
+										<div class="absolute top-0 left-0 h-full w-full pointer-events-none z-[1] opacity-20">
+											<div class="gradient-overlay"></div>
+											<img class="opacity-30" src="{{ function("svg", "hero-three-card-grid") }}" loading="lazy" alt="grid background">
+										</div>
+									</div>
+
+									<div class="item-content">
+										<div class="flex gap-[1rem]">
+											<small class="text-white-60 text-[0.75rem] relative top-[0.25rem]">{{ loop.index <= 9 ? '0' ~ loop.index : loop.index }}</small>
+
+											{% if item.title %}
+												<h6 class="text-white flex-1">{{ item.title }}</h6>
+											{% endif %}
+										</div>
+
+										{% if item.description %}
+											<p class="text-white">{{ item.description }}</p>
+										{% endif %}
+									</div>
+								</div>
+
+								<div class="item-lines">
+									<div class="item-t"></div>
+									<div class="item-r"></div>
+									<div class="item-l"></div>
+									<div class="item-b"></div>
+								</div>
+
+								<div class="item-box"></div>
+							</div>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endcache %}

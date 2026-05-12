@@ -1,0 +1,123 @@
+{# {{ function('dd', fields) }} #}
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }} bg-{{ fields.bg }}">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "~pt-[7.25rem]/[10.25rem]" %}
+	{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-xl" %}
+
+	<div class="container">
+		<div class="{{ pt }} {{ pb }} relative z-[2]">
+			<div class="flex flex-col ~gap-[7.5rem]/[6rem]">
+				<div class="flex flex-col ~gap-[1.25rem]/[1.5rem] sm:max-w-[27rem]">
+					{% if fields.heading %}
+						{% include 'components/heading.twig' with {
+                            'class': 'main-title',
+                            'value': fields.heading.value, 
+                            'type': fields.heading.type != "default" ? fields.heading.type : "h1",
+                            'has_custom_style': fields.heading.has_custom_style,
+                            'style': fields.heading.style,
+                            'to_words': true
+                        } %}
+					{% endif %}
+
+					{% if fields.paragraph %}
+						<p class="~indent-[0rem]/[3.75rem]">{{ fields.paragraph }}</p>
+					{% endif %}
+				</div>
+
+				{% if (fields.has_main_feature_item and fields.main_feature_item) or fields.sub_feature_items|length %}
+					<div class="flex flex-col ~gap-[3rem]/[4rem]">
+						{% if fields.has_main_feature_item and fields.main_feature_item %}
+							{% set item = fields.main_feature_item %}
+							{% set id = item.ID %}
+							{% set title = item.post_title %}
+							{% set post_date = item.post_date|date("n/j/Y") %}
+							{% set excerpt = function("get_the_excerpt", id) %}
+							{% set image = function("get_post_thumbnail_id", id) %}
+							{% set permalink = function("get_permalink", id) %}
+
+							<div class="box">
+								<div class="relative z-[2] flex items-center ~gap-[1.25rem]/[9rem] py-[0.75rem] max-md:flex-col-reverse md:min-h-[22.75rem]">
+									<div class="md:flex-1 flex flex-col ~gap-[1.25rem]/[1.5rem] max-md:pr-[0.75rem] ~pl-[0.75rem]/[6rem]">
+										<div class="flex justify-between gap-[1.5rem]">
+											{% include 'components/eyebrow.twig' with { 'text': 'Blog', 'textClass': 'text-white-60' } %}
+											<small class="text-white-60">{{ post_date }}</small>
+										</div>
+
+										<div class="flex flex-col gap-[0.75rem]">
+											<h5 class="text-white">{{ title }}</h5>
+											<p class="text-white line-clamp-2">{{ excerpt }}</p>
+										</div>
+
+										{% include 'components/cta.twig' with {
+                                            'class' : 'filled white',
+                                            'cta': {
+                                                'url' : permalink,
+                                                'title' : fields.main_feature_item_cta_text ? "Read more",
+                                                'target' : "_self"  
+                                            }, 
+                                            'icon': true,
+                                        } %}
+									</div>
+
+									{% if image %}
+										<div class="md:flex-1 relative self-stretch max-md:pl-[0.75rem] pr-[0.75rem]">
+											<div class="max-md:h-[11.25rem] h-full w-full relative rounded-[0.5rem] overflow-hidden">
+												{% include 'components/image.twig' with {
+                                                    'image': image,
+                                                    'loading': 'eager',
+                                                    'class': "md:absolute md:center-xy md:left-0 md:top-0 h-full w-full",
+                                                    'size': [546, 340],
+                                                } %}
+											</div>
+										</div>
+									{% endif %}
+								</div>
+
+								<div class="box-orb">
+									<img class="object-contain" src="{{ function("webp", "blog-feature-orb") }}" loading="lazy" alt="background graphic">
+								</div>
+							</div>
+						{% endif %}
+
+						{% if fields.sub_feature_items|length %}
+							<div class="flex flex-col ~gap-[1.25rem]/[1.5rem]">
+								{% if fields.sub_feature_title %}
+                                    <small class="text-black-60">{{ fields.sub_feature_title }}</small>
+                                {% endif %}
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 ~gap-[1.25rem]/[1.5rem]">
+                                    {% for index, item in fields.sub_feature_items %}
+                                        {% set id = item.ID %}
+                                        {% set title = item.post_title %}
+                                        {% set post_date = item.post_date|date("n/j/Y") %}
+                                        {% set image = function("get_post_thumbnail_id", id) %}
+                                        {% set permalink = function("get_permalink", id) %}
+
+                                        {% include 'components/blog-card.twig' with {
+                                            "cardClass": "sub-feature",
+                                            "title": title,
+                                            "permalink": permalink,
+                                            "image": image,
+                                            "date": post_date,
+                                        } %}
+                                    {% endfor %}
+                                </div>
+							</div>
+						{% endif %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+
+		<div class="parallax absolute ~right-[1.375rem]/[3.625rem] ~top-[18.25rem]/[9.5rem] pointer-events-none">
+			<img class="object-contain ~w-[13rem]/[31.625rem] ~h-[9.25rem]/[22.375rem]" src="{{ function("svg", "blog-hero") }}" loading="lazy" alt="background graphic">
+		</div>
+	</div>
+</section>
+
+{% endcache %}

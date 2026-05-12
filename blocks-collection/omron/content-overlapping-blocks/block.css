@@ -1,0 +1,11 @@
+@layer components {
+	.content-overlapping-blocks {
+		table {
+			@apply table-fixed;
+
+			td {
+				@apply border-y-[0.0625rem] border-grey-60 py-[0.75rem] w-[50%];
+			}
+		}
+	}
+}

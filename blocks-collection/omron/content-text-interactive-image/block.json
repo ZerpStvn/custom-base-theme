@@ -1,0 +1,11 @@
+{
+	"name": "content-text-interactive-image",
+	"title": "Content Text Interactive Image",
+    "viewScript": ["file:./script.js"],
+    "viewStyle": [],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

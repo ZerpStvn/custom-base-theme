@@ -1,0 +1,235 @@
+<main class="single-event">
+
+    {# Hero — mirrors hero-homepage block layout #}
+    {% if hero %}
+        {% if hero.layout == 'layout_b' %}
+            {% set hero_font = 'font-radley' %}
+        {% elseif hero.layout == 'layout_c' %}
+            {% set hero_font = 'font-big-shoulders' %}
+        {% else %}
+            {% set hero_font = 'font-fraunces' %}
+        {% endif %}
+
+        <section id="{{ hero.anchor_id }}" class="single-event__hero-section relative h-[30vh] md:h-[70vh]">
+            {% if thumbnail %}
+                <div class="absolute top-[-1.875rem] h-full w-full" data-hero-bg>
+                    {% include "components/image.twig" with {
+                        image: thumbnail,
+                        class: "w-full h-full object-cover",
+                        loading: "eager",
+                        fetchpriority: "high",
+                        decoding: "async"
+                    } only %}
+                </div>
+            {% endif %}
+            <div class="container h-full">
+                <div class="flex flex-col items-center justify-center h-full">
+                    <div class="st-xl sb-xl">
+                        <div class="relative flex max-w-[53rem] w-full flex-col gap-[.875rem] items-center justify-center">
+                            {% if hero.eyebrow %}
+                                <p class="eyebrow text-white">{{ hero.eyebrow }}</p>
+                            {% endif %}
+                            <h1 class="{{ hero_font }} text-center text-white">{{ hero.heading ?: event_title }}</h1>
+                            {% if start_date or venue %}
+                                <p class="single-event__meta font-hanken" style="color:#fff;">
+                                    {{ start_date }}{% if start_date and venue %} | {% endif %}{{ venue }}
+                                </p>
+                            {% endif %}
+                            {% if has_tickets %}
+                                <button class="btn btn-primary btn-a js-date-picker-open" type="button">RSVP</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% else %}
+        <section class="single-event__hero st-xl sb-xl">
+            <div class="container">
+                <div class="single-event__hero-inner">
+                    <h1 class="single-event__title font-fraunces">{{ event_title }}</h1>
+                    {% if start_date or venue %}
+                        <p class="single-event__meta font-hanken">
+                            {{ start_date }}{% if start_date and venue %} | {% endif %}{{ venue }}
+                        </p>
+                    {% endif %}
+                    {% if has_tickets %}
+                        <button class="btn btn-primary btn-a js-date-picker-open" type="button">RSVP</button>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+
+        {% if thumbnail %}
+            <div class="single-event__hero-image">
+                {% include "components/image.twig" with {
+                    image: thumbnail,
+                    class: "single-event__hero-img",
+                    fetchpriority: "high",
+                    loading: "eager"
+                } only %}
+            </div>
+        {% endif %}
+    {% endif %}
+
+    <section class="single-event__body st-xl sb-xl">
+        <div class="container">
+            <div class="single-event__grid">
+
+                <aside class="single-event__details">
+                    <h3 class="single-event__section-heading font-hanken">Time &amp; Location</h3>
+
+                    {% if start_date %}
+                        <div class="single-event__detail-block">
+                            <p class="single-event__detail-label font-hanken">Date &amp; Time</p>
+                            <p class="single-event__detail-value font-instrument">
+                                {{ start_date }}{% if start_time %} at {{ start_time }}{% endif %}
+                                {% if end_date and end_date != start_date %}
+                                    &ndash; {{ end_date }}{% if end_time %} at {{ end_time }}{% endif %}
+                                {% elseif end_time and end_time != start_time %}
+                                    &ndash; {{ end_time }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    {% endif %}
+
+                    {% if venue or venue_address %}
+                        <div class="single-event__detail-block">
+                            <p class="single-event__detail-label font-hanken">Location</p>
+                            {% if venue %}
+                                <p class="single-event__detail-value font-instrument">{{ venue }}</p>
+                            {% endif %}
+                            {% if venue_address %}
+                                <p class="single-event__detail-value font-instrument">{{ venue_address }}</p>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    {% if cost %}
+                        <div class="single-event__detail-block">
+                            <p class="single-event__detail-label font-hanken">Cost</p>
+                            <p class="single-event__detail-value font-instrument">{{ cost }}</p>
+                        </div>
+                    {% endif %}
+
+                    {% if website %}
+                        <div class="single-event__detail-block">
+                            <a class="single-event__website font-hanken" href="{{ website }}" target="_blank" rel="noopener noreferrer">Visit Website</a>
+                        </div>
+                    {% endif %}
+
+                    {% if has_tickets %}
+                        <button class="btn btn-primary btn-a single-event__rsvp-btn js-date-picker-open" type="button">RSVP</button>
+                    {% endif %}
+                </aside>
+
+                <article class="single-event__content">
+                    <h3 class="single-event__section-heading font-hanken">About the Event</h3>
+
+                    {% if content %}
+                        <div class="single-event__wysiwyg font-instrument">{{ content }}</div>
+                    {% endif %}
+
+                    <div class="single-event__share">
+                        <p class="single-event__share-label font-hanken">Share</p>
+                        <div class="single-event__share-links">
+                            <a class="font-hanken" href="https://www.facebook.com/sharer/sharer.php?u={{ permalink|url_encode }}" target="_blank" rel="noopener noreferrer">Facebook</a>
+                            <a class="font-hanken" href="https://twitter.com/intent/tweet?url={{ permalink|url_encode }}" target="_blank" rel="noopener noreferrer">Twitter</a>
+                            <a class="font-hanken" href="https://www.linkedin.com/sharing/share-offsite/?url={{ permalink|url_encode }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+</main>
+
+{% if has_tickets %}
+<dialog class="date-picker" id="date-picker-modal"
+    data-event-id="{{ event_id }}"
+    data-event-title="{{ event_title|escape('html_attr') }}"
+    data-start-dt="{{ start_iso }}"
+    data-end-dt="{{ end_iso }}"
+    data-location="{{ (venue ~ (venue and venue_address ? ', ' : '') ~ venue_address)|escape('html_attr') }}"
+    data-event-url="{{ permalink|escape('html_attr') }}">
+    <div class="date-picker__inner">
+
+        <button class="date-picker__close font-hanken" id="date-picker-close" type="button">&times;</button>
+
+        {# Step 1: Select ticket #}
+        <div id="dp-step-1">
+            <h2 class="date-picker__title font-hanken">Select a Ticket</h2>
+            <div class="date-picker__list">
+                {% for ticket in tickets %}
+                    <label class="date-picker__item">
+                        <input class="date-picker__radio" type="radio" name="rsvp_ticket" value="{{ ticket.id }}">
+                        <div class="date-picker__info">
+                            <span class="date-picker__ticket-name font-hanken">{{ ticket.name }}</span>
+                            {% if ticket.description %}
+                                <span class="date-picker__datetime font-instrument">{{ ticket.description }}</span>
+                            {% endif %}
+                            {% if ticket.start_date %}
+                                <span class="date-picker__venue font-instrument">
+                                    {{ ticket.start_date }}{% if ticket.end_date and ticket.end_date != ticket.start_date %} &ndash; {{ ticket.end_date }}{% endif %}
+                                </span>
+                            {% endif %}
+                        </div>
+                    </label>
+                {% endfor %}
+            </div>
+            <div class="date-picker__footer">
+                <button class="date-picker__cancel font-hanken" id="date-picker-cancel" type="button">Cancel</button>
+                <button class="date-picker__done btn btn-primary btn-a" id="dp-next" type="button" disabled>Continue</button>
+            </div>
+        </div>
+
+        {# Step 2: Fill details #}
+        <div id="dp-step-2" hidden>
+            <h2 class="date-picker__title font-hanken">Add Your Details</h2>
+            <div class="date-picker__list">
+                <form id="rsvp-form" class="date-picker__form">
+                    <div class="date-picker__form-row">
+                        <label class="font-hanken" for="rsvp-first-name">First Name *</label>
+                        <input type="text" id="rsvp-first-name" name="first_name" autocomplete="given-name">
+                    </div>
+                    <div class="date-picker__form-row">
+                        <label class="font-hanken" for="rsvp-last-name">Last Name *</label>
+                        <input type="text" id="rsvp-last-name" name="last_name" autocomplete="family-name">
+                    </div>
+                    <div class="date-picker__form-row">
+                        <label class="font-hanken" for="rsvp-email">Email *</label>
+                        <input type="email" id="rsvp-email" name="email" autocomplete="email">
+                    </div>
+                    <p class="date-picker__error font-instrument" id="rsvp-error" hidden></p>
+                </form>
+            </div>
+            <div class="date-picker__footer">
+                <button class="date-picker__cancel font-hanken" id="dp-back" type="button">Back</button>
+                <button class="date-picker__done btn btn-primary btn-a" id="rsvp-submit" type="button">Submit RSVP</button>
+            </div>
+        </div>
+
+        {# Step 3: Success #}
+        <div id="dp-step-3" hidden>
+            <div class="date-picker__success">
+                <p class="date-picker__success-icon">&#10003;</p>
+                <h2 class="date-picker__title font-hanken">You're confirmed!</h2>
+                <p class="date-picker__datetime font-instrument">Your RSVP has been received. We'll see you there!</p>
+                <div class="date-picker__atc">
+                    <p class="date-picker__atc-label font-hanken">Add to Calendar</p>
+                    <div class="date-picker__atc-btns">
+                        <a class="date-picker__atc-btn font-hanken" id="dp-atc-google" href="#" target="_blank" rel="noopener noreferrer">Google</a>
+                        <button class="date-picker__atc-btn font-hanken" id="dp-atc-ical" type="button">Apple / Outlook</button>
+                    </div>
+                </div>
+            </div>
+            <div class="date-picker__footer">
+                <button class="date-picker__done btn btn-primary btn-a" id="dp-done-close" type="button">Close</button>
+            </div>
+        </div>
+
+    </div>
+</dialog>
+{% endif %}

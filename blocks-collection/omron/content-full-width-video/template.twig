@@ -1,0 +1,18 @@
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }}">
+    {% if block.anchor %}
+        <div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+    {% endif %}
+
+    {# {% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "st-xl" %} #}
+    {# {% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-xl" %} #}
+
+    <div class="container">
+        <div class="{{ pt }} {{ pb }}">
+            
+        </div>
+    </div>
+</section>
+
+{% endcache %}

@@ -1,0 +1,11 @@
+{
+	"name": "content-click-drag-carousel",
+	"title": "Content Click Drag Carousel",
+    "viewScript": ["file:./script.js"],
+    "viewStyle": ["swiper-style"],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

@@ -1,0 +1,11 @@
+{
+	"name": "resource-three-across-featured",
+	"title": "Resource Three Across Featured",
+    "viewScript": ["file:./script.js"],
+    "viewStyle": [],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

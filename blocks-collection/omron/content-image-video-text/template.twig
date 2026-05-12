@@ -1,0 +1,86 @@
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }} bg-black">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "~pt-[5rem]/[8.125rem]" %}
+	{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "~pb-[5rem]/[8.125rem]" %}
+
+	<div class="container relative z-[2]">
+		<div class="{{ pt }} {{ pb }}">
+			<div class="inner flex max-md:flex-col ~gap-[3rem]/[8.625rem] items-center">
+				{% if fields.image or fields.video %}
+					<div class="relative w-full md:basis-[40.25rem] ~h-[24.25rem]/[31.625rem] md:flex-1">
+						{% if fields.media_type == "image" %}
+							{% if fields.image %}
+								{% include 'components/image.twig' with {
+                                    'image': fields.image,
+                                    'class': 'object-contain h-full w-full relative z-[2]',
+                                    'size': [644, 506],
+                                } %}
+							{% endif %}
+						{% else %}
+							{% if fields.video %}
+								<div class="video-container relative z-[2]" data-video-id="{{ fields.video }}"></div>
+							{% endif %}
+						{% endif %}
+
+						<div class="orb ~w-[40.625rem]/[68rem] ~h-[40.625rem]/[62.875rem] absolute center-xy z-[1]">
+							<img class="object-contain" src="{{ function("webp", "image-video-orb") }}" loading="lazy" alt="background graphic">
+						</div>
+					</div>
+				{% endif %}
+
+				<div class="flex flex-col md:flex-1 md:basis-[34.125rem] ~gap-[1.25rem]/[1.5rem] h-fit relative">
+					<div class="w-full max-md:flex max-md:flex-col max-md:gap-[0.75rem] md:max-w-[62.75rem] relative pr-[2.25rem]">
+						{% include 'components/eyebrow.twig' with {
+                            'class' : "md:absolute md:top-[0.625rem] left-0",
+                            'textClass' : "text-white-60",
+                            'text': fields.eyebrow
+                        } %}
+
+						{% if fields.heading %}
+							{% include 'components/heading.twig' with {
+                                'class': 'main-title text-white',
+                                'indent': '<span class="max-md:hidden w-[12.5rem] h-[2.5rem] shrink-0"></span>',
+                                'value': fields.heading.value, 
+                                'type': fields.heading.type != "default" ? fields.heading.type : "h3",
+                                'has_custom_style': fields.heading.has_custom_style,
+                                'style': fields.heading.style,
+                                'to_words': true
+                            } %}
+						{% endif %}
+					</div>
+
+					{% if fields.paragraph %}
+						<p class="text-white">{{ fields.paragraph }}</p>
+					{% endif %}
+
+					{% include 'components/cta.twig' with {
+                        'class' : 'filled white',
+                        'cta': fields.cta, 
+                        'icon': true,
+                    } %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="absolute top-0 left-0 h-full max-h-[32rem] w-full pointer-events-none z-[1]">
+		<div class="w-full h-full overflow-hidden absolute top-0 left-0 flex flex-col z-[1]">
+			<div class="flex min-w-fit shrink-0 relative">
+				{% for i in 1..2 %}
+					<svg class="w-[101.625rem] h-[63.5625rem]" width="1626" height="1017" viewbox="0 0 1626 1017" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M0.574707 1.4366L1624 1.43652M0.574707 35.258L1624 35.2579M0.574707 69.0795L1624 69.0794M0.574707 102.901L1624 102.901M0.574707 136.722L1624 136.722M0.574707 170.544L1624 170.544M0.574707 204.365L1624 204.365M0.574707 238.187L1624 238.187M0.574707 272.008L1624 272.008M0.574707 305.83L1624 305.83M0.574707 339.651L1624 339.651M0.574707 373.473L1624 373.473M0.574707 407.294L1624 407.294M0.574707 441.116L1624 441.115M0.574707 474.937L1624 474.937M0.574707 508.758L1624 508.758M542.28 2.00029L542.28 1016.64M508.458 2.00029L508.458 1016.64M474.637 2.00029L474.637 1016.64M440.815 2.00029L440.815 1016.64M406.994 2.00029L406.994 1016.64M373.173 2.00029L373.172 1016.64M339.351 2.00029L339.351 1016.64M305.53 2.00029L305.53 1016.64M271.708 2.00029L271.708 1016.64M237.887 2.00029L237.887 1016.64M204.065 2.00029L204.065 1016.64M170.244 2.00029L170.244 1016.64M136.422 2.00029L136.422 1016.64M102.601 2.00029L102.601 1016.64M68.7795 2.00017L68.7794 1016.64M34.9581 2.00017L34.958 1016.64M1083.42 2.00029V1016.64M1049.6 2.00029L1049.6 1016.64M1015.78 2.00029L1015.78 1016.64M981.957 2.00029L981.957 1016.64M948.136 2.00029L948.135 1016.64M914.314 2.00029L914.314 1016.64M880.493 2.00029L880.493 1016.64M846.671 2.00029V1016.64M812.85 2.00029L812.85 1016.64M779.028 2.00029L779.028 1016.64M745.207 2.00029V1016.64M711.385 2.00029V1016.64M677.564 2.00029V1016.64M643.742 2.00029L643.742 1016.64M609.921 2.00029V1016.64M576.099 2.00029V1016.64M1624.56 2.00017L1624.56 1016.64M1590.74 2.00017V1016.64M1556.92 2.00017L1556.92 1016.64M1523.1 2.00017L1523.1 1016.64M1489.28 2.00017L1489.28 1016.64M1455.46 2.00017V1016.64M1421.63 2.00017V1016.64M1387.81 2.00017L1387.81 1016.64M1353.99 2.00017V1016.64M1320.17 2.00017V1016.64M1286.35 2.00017V1016.64M1252.53 2.00017V1016.64M1218.71 2.00017L1218.71 1016.64M1184.88 2.00017L1184.88 1016.64M1151.06 2.00017V1016.64M1117.24 2.00017L1117.24 1016.64M0.574707 508.757L1624 508.757M0.574707 542.578L1624 542.578M0.574707 576.4L1624 576.4M0.574707 610.221L1624 610.221M0.574707 644.043L1624 644.043M0.574707 677.864L1624 677.864M0.574707 711.686L1624 711.686M0.574707 745.507L1624 745.507M0.574707 779.328L1624 779.328M0.574707 813.15L1624 813.15M0.574707 846.971L1624 846.971M0.574707 880.793L1624 880.793M0.574707 914.614L1624 914.614M0.574707 948.436L1624 948.436M0.574707 982.257L1624 982.257M0.574707 1016.08L1624 1016.08" stroke="#333333" stroke-width="1.12738"/>
+					</svg>
+				{% endfor %}
+			</div>
+		</div>
+
+		<div class="h-full w-full absolute top-0 left-0 z-[2]" style="background: linear-gradient(180deg, rgba(38, 38, 38, 0.00) 0%, #262626 100%);"></div>
+	</div>
+</section>
+
+{% endcache %}

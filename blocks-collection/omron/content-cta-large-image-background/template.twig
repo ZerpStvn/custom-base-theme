@@ -1,0 +1,65 @@
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }} bg-{{ fields.bg }}">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "st-xxl" %}
+	{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-xl" %}
+
+	<div class="container">
+		<div class="{{ pt }} {{ pb }}">
+			<div class="box bg-black rounded-[0.5rem] overflow-hidden relative ~px-[1.5rem]/[3rem] lg:min-h-[48rem] ~py-[5rem]/[9rem] opacity-0 invisible flex items-center">
+				<div class="max-w-[34.0625rem] flex flex-col ~gap-[1.5rem]/[2.25rem] relative z-[3]">
+                    <div class="w-full max-md:flex max-md:flex-col max-md:gap-[0.75rem] md:max-w-[34.125rem] relative">
+                        {% include 'components/eyebrow.twig' with {
+                            'class' : "md:absolute md:top-[0.625rem] left-0",
+                            'text': fields.eyebrow,
+                            'textClass': 'text-white-60'
+                        } %}
+
+                        {% if fields.heading %}
+                            {% include 'components/heading.twig' with {
+                                'class': 'main-title text-white',
+                                'indent': '<span class="max-md:hidden w-[10rem] h-[2.5rem] shrink-0"></span>',
+                                'value': fields.heading.value, 
+                                'type': fields.heading.type != "default" ? fields.heading.type : "h3",
+                                'has_custom_style': fields.heading.has_custom_style,
+                                'style': fields.heading.style,
+                                'to_words': true
+                            } %}
+                        {% endif %}
+                    </div>
+
+					{% if fields.paragraph or fields.cta %}
+                        <div class="flex flex-col ~gap-[1.25rem]/[1.5rem]">
+                            {% if fields.paragraph %}
+                                <p class="text-white max-w-[31.625rem]">{{ fields.paragraph }}</p>
+                            {% endif %}
+
+                            {% include 'components/cta.twig' with {
+                                'class': 'filled white',
+                                'cta': fields.cta, 
+                                'icon': true,
+                            } %}
+                        </div>
+                    {% endif %}
+				</div>
+
+				<div class="box-overlay z-[2] absolute top-0 left-0 h-full w-full"></div>
+
+				{% if fields.image %}
+					<div class="box-image absolute top-0 left-0 h-full w-full">
+						{% include 'components/image.twig' with {
+                            'image': fields.image,
+                            'size': [1344, 768],
+                        } %}
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endcache %}

@@ -1,0 +1,56 @@
+@layer components {
+  .btn {
+    @apply font-hanken;
+    display: flex;
+    padding: 20px 24px;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    gap: 10px;
+    &.btn-primary {
+      color: #fff;
+      text-align: center;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 102%; /* 16.32px */
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      &:hover {
+        background: #ffffff90;
+      }
+    }
+    &.btn-secondary {
+      background: #fff;
+      text-align: center;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 102%; /* 16.32px */
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      &:hover {
+        background: #ffffff90;
+      }
+    }
+    &.btn-a {
+      background: #7b1d15;
+      &:hover {
+        background: #7b1e1590;
+      }
+    }
+    &.btn-b {
+      background: #344049;
+      &:hover {
+        background: #34404990;
+      }
+    }
+    &.btn-c {
+      color: black;
+      background: #eeca4f;
+      &:hover {
+        background: #eec94f90;
+      }
+    }
+  }
+}

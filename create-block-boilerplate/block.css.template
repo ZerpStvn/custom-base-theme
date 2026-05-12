@@ -1,0 +1,5 @@
+@layer components {
+    .[[BLOCK_NAME]] {
+        /* Add your styles here */
+    }
+}

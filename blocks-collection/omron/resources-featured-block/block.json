@@ -1,0 +1,10 @@
+{
+	"name": "resources-featured-block",
+	"title": "Resources Featured Block",
+    "viewScript": ["file:./script.js"],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

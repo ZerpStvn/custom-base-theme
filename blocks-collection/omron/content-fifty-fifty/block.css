@@ -1,0 +1,21 @@
+@layer components {
+	.content-50-50 {
+		&.is-inverted {
+			.inner {
+				@apply md:flex-row-reverse;
+			}
+
+			.ticker {
+				@apply md:left-[unset] md:right-0;
+			}
+		}
+
+		.video-container {
+			@apply h-full w-full relative bg-black;
+		}
+
+		iframe {
+			@apply absolute center-xy h-full w-auto aspect-video;
+		}
+	}
+}

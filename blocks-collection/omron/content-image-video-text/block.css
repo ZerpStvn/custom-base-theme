@@ -1,0 +1,11 @@
+@layer components {
+	.content-image-video-text {
+		.video-container {
+			@apply h-full w-full relative bg-black overflow-hidden rounded-[0.5rem];
+		}
+
+		iframe {
+			@apply absolute center-xy h-full w-auto aspect-video;
+		}
+	}
+}

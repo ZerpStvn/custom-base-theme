@@ -1,0 +1,98 @@
+{# Resolve per-template fields into single variables #}
+{% if footer_template == 'template_a' %}
+	{% set active_logo    = footer_logo %}
+	{% set active_bg      = bckground_image %}
+	{% set active_columns = primary_footer_nav_columns %}
+	{% set active_social  = footer_social %}
+	{% set active_sub     = sub_footer %}
+	{% set active_legal   = legal %}
+{% elseif footer_template == 'template_b' %}
+	{% set active_logo    = footer_logo_b %}
+	{% set active_bg      = bckground_image_b %}
+	{% set active_columns = primary_footer_nav_columns_b %}
+	{% set active_social  = footer_social_b %}
+	{% set active_sub     = sub_footer_b %}
+	{% set active_legal   = legal_b %}
+{% elseif footer_template == 'template_c' %}
+	{% set active_logo    = footer_logo_c %}
+	{% set active_bg      = bckground_image_c %}
+	{% set active_columns = primary_footer_nav_columns_c %}
+	{% set active_social  = footer_social_c %}
+	{% set active_sub     = sub_footer_c %}
+	{% set active_legal   = legal_c %}
+{% endif %}
+
+<footer class="footer {{ footer_template }}"{% if active_bg %} style="background-image: url('{{ active_bg.url }}'); background-repeat: no-repeat; background-size: cover;"{% endif %}>
+	<div class="flex flex-col">
+		<div class="container">
+			<div class="py-[5rem] w-full">
+				<div class="flex justify-between">
+					<div class="flex flex-col gap-[1rem]">
+
+						{% if active_logo %}
+							{% include "components/image.twig" with {
+								image: active_logo,
+								class: "w-[5.6896rem] h-[5.75rem]"
+							} only %}
+						{% endif %}
+
+						<div class="flex justify-between">
+							<div>
+								{% if active_columns|length %}
+									<div class="footer__columns grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[2rem]">
+										{% for nav_column in active_columns %}
+											<div class="footer__column">
+												{% if nav_column.label %}
+													<p class="footer__column-label text-white">{{ nav_column.label }}</p>
+												{% endif %}
+
+												{% if nav_column.content %}
+													<div class="footer__group text-white">{{ nav_column.content }}</div>
+												{% endif %}
+											</div>
+										{% endfor %}
+									</div>
+								{% endif %}
+							</div>
+						</div>
+
+					</div>
+
+					<div>
+						{% if active_social|length %}
+							<div class="footer__socials">
+								<div class="footer__socials-inner flex gap-[1rem]">
+									{% for social in active_social %}
+										<a href="{{ social.link|lower ?: '#' }}" target="_blank" class="footer__social" rel="nofollow noreferrer noopen">
+											{% include 'components/image.twig' with {
+												'image': social.icon,
+												'class': 'object-contain',
+												'size': 'full',
+											} %}
+										</a>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="w-full h-[.0313rem] bg-white"></div>
+
+		<div class="container py-[1.5rem]">
+			<div class="flex w-full justify-between items-center">
+				{% if active_sub %}
+					<div>
+						<p class="sub_footer">{{ active_sub }}</p>
+					</div>
+				{% endif %}
+
+				{% if active_legal %}
+					<div class="footer_legal">{{ active_legal }}</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</footer>

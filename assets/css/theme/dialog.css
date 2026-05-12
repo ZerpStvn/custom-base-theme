@@ -1,0 +1,224 @@
+@layer components {
+    .form-modal {
+        position: fixed;
+        inset: 0;
+        margin: auto;
+        width: 100%;
+        max-width: 40rem;
+        max-height: 90svh;
+        overflow-y: auto;
+        border: none;
+        padding: 0;
+        background: #fff;
+
+        &::backdrop {
+            background: rgba(0, 0, 0, 0.5);
+        }
+    }
+
+    .form-modal__inner {
+        position: relative;
+        padding: 3rem;
+    }
+
+    .form-modal__close {
+        position: absolute;
+        top: 1.25rem;
+        right: 1.25rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0.25rem;
+        line-height: 0;
+        color: currentColor;
+        opacity: 0.6;
+        transition: opacity 0.2s ease;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .form-modal__title {
+        margin-bottom: 2rem;
+        font-weight: 400;
+        line-height: 91%;
+        letter-spacing: -0.03em;
+    }
+
+    .form-modal.template_a .form-modal__title {
+        font-family: Fraunces, serif;
+        color: #7B1D15;
+    }
+
+    .form-modal.template_b .form-modal__title {
+        font-family: Radley, serif;
+        color: #344049;
+    }
+
+    .form-modal.template_c .form-modal__title {
+        font-family: Big Shoulders, sans-serif;
+        color: #EECA4F;
+    }
+
+    .form-modal__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .form-modal__row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+
+        @media (max-width: 560px) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .form-modal__field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        label {
+            font-family: Hanken Grotesk, sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.68px;
+            text-transform: uppercase;
+
+            span {
+                color: red;
+            }
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid #d1d5db;
+            background: #f9fafb;
+            font-family: Instrument Sans, sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.2s ease;
+
+            &:focus {
+                outline: none;
+            }
+        }
+
+        textarea {
+            resize: vertical;
+        }
+    }
+
+    .form-modal__submit {
+        align-self: flex-start;
+        margin-top: 0.5rem;
+        font-family: Hanken Grotesk, sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        letter-spacing: 1.68px;
+        text-transform: uppercase;
+        color: #fff;
+        background: #000;
+        transition: background 0.2s ease;
+    }
+
+    /* template_a — Fraunces / #7B1D15 */
+    .form-modal.template_a input:focus,
+    .form-modal.template_a textarea:focus {
+        border-color: #7B1D15;
+    }
+
+    .form-modal.template_a .form-modal__submit {
+        background: #7B1D15;
+
+        &:hover { background: #7b1e1570; color: #7B1D15; }
+    }
+
+    /* template_b — Radley / #344049 */
+    .form-modal.template_b input:focus,
+    .form-modal.template_b textarea:focus {
+        border-color: #344049;
+    }
+
+    .form-modal.template_b .form-modal__submit {
+        background: #344049;
+
+        &:hover { background: #34404970; color: #344049; }
+    }
+
+    /* template_c — Big Shoulders / #EECA4F */
+    .form-modal.template_c input:focus,
+    .form-modal.template_c textarea:focus {
+        border-color: #EECA4F;
+    }
+
+    .form-modal.template_c .form-modal__submit {
+        background: #EECA4F;
+        color: #344049;
+
+        &:hover { background: #eec94f70; }
+    }
+}
+
+@layer base {
+    dialog {
+        animation: dialogFadeOut 0.5s alternate-reverse;
+    
+        &[open] {
+            animation: dialogFadeIn 0.5s forwards;
+    
+            &::backdrop {
+                animation: backdropFadeIn 0.5s forwards;
+            }
+        }
+    
+        &::backdrop {
+            animation: backdropFadeOut 0.5s forwards;
+        }
+    }
+}
+
+@keyframes dialogFadeIn {
+	from {
+		transform: translateY(2.5rem);
+	}
+
+	to {
+		transform: translateY(0%);
+	}
+}
+
+@keyframes dialogFadeOut {
+	from {
+		transform: translateY(0%);
+	}
+
+	to {
+		transform: translateY(2.5rem);
+	}
+}
+
+@keyframes backdropFadeIn {
+	from {
+		background: hsl(0 0% 0% / 0%);
+	}
+
+	to {
+		background: rgb(0 0 0 / 25%);
+	}
+}
+
+@keyframes backdropFadeOut {
+	from {
+		background: rgb(0 0 0 / 25%);
+	}
+
+	to {
+		background: hsl(0 0% 0% / 0%);
+	}
+}

@@ -1,0 +1,516 @@
+@layer base {
+	::selection {
+		@apply text-black bg-green;
+	}
+
+	.hide-scrollbar {
+		*::-webkit-scrollbar {
+			display: none; /* Safari and Chrome */
+		}
+
+		* {
+			-ms-overflow-style: none; /* Internet Explorer 10+ */
+			scrollbar-width: none; /* Firefox */
+		}
+	}
+
+	section {
+		@apply overflow-hidden relative;
+	}
+
+	.section-anchor {
+		@apply absolute top-[-3.75rem] left-0 h-[0.0625rem] w-full;
+	}
+
+    input {
+        @apply !rounded-none;
+    }
+}
+
+@layer components {
+	.container {
+		@apply max-w-[90rem] w-full ~px-[1rem]/[3rem] mx-auto;
+	}
+
+	.alpha {
+		@apply opacity-0 invisible;
+	}
+
+	.outer-word,
+	.outer-char {
+		clip-path: polygon(0% 0%, 0% 120%, 110% 120%, 110% 0%);
+	}
+
+	.inner-char,
+	.inner-word {
+		@apply inline-block translate-y-[120%] translate-z-0 will-change-transform;
+	}
+}
+
+@layer components {
+    .single-event {
+        &__hero {
+            text-align: center;
+        }
+
+        &__hero-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            max-width: 52rem;
+            margin: 0 auto;
+        }
+
+        &__title {
+            font-size: clamp(2.5rem, 1.94rem + 1.56vw, 3.5rem);
+            font-weight: 400;
+            line-height: 91%;
+            letter-spacing: -0.03em;
+        }
+
+        &__meta {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            opacity: 0.75;
+        }
+
+        &__hero-image {
+            img {
+                width: 100%;
+                height: clamp(18rem, 14rem + 11.11vw, 36rem);
+                object-fit: cover;
+                display: block;
+            }
+        }
+
+        &__grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+
+            @media (min-width: 768px) {
+                grid-template-columns: 1fr 2fr;
+                gap: 5rem;
+            }
+        }
+
+        &__section-heading {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid currentColor;
+        }
+
+        &__details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__detail-block {
+            margin-bottom: 2rem;
+        }
+
+        &__detail-label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-bottom: 0.375rem;
+        }
+
+        &__detail-value {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        &__website {
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        &__rsvp-btn {
+            margin-top: auto;
+        }
+
+        &__content {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        &__wysiwyg {
+            font-size: 1.125rem;
+            line-height: 1.7;
+
+            p { margin-bottom: 1em; }
+            h2, h3, h4 { margin: 1.5em 0 0.5em; }
+            ul, ol { padding-left: 1.5em; margin-bottom: 1em; }
+            li { margin-bottom: 0.25em; }
+            a { text-decoration: underline; text-underline-offset: 3px; }
+        }
+
+        &__tickets {
+            display: flex;
+            flex-direction: column;
+            gap: 2.5rem;
+        }
+
+        &__ticket-form {
+            border: 1px solid currentColor;
+            padding: 1.5rem;
+        }
+
+        &__ticket-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        &__ticket-price {
+            font-size: 0.875rem;
+            opacity: 0.65;
+            margin-bottom: 1.5rem;
+        }
+
+        &__rsvp-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        &__form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+
+            label {
+                font-size: 0.6875rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+
+            input {
+                padding: 0.75rem 1rem;
+                border: 1px solid currentColor;
+                background: transparent;
+                font-size: 1rem;
+                width: 100%;
+
+                &:focus { outline: 2px solid currentColor; }
+            }
+        }
+
+        &__share {
+            border-top: 1px solid currentColor;
+            padding-top: 2rem;
+        }
+
+        &__share-label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-bottom: 1rem;
+        }
+
+        &__share-links {
+            display: flex;
+            gap: 1.5rem;
+
+            a {
+                font-size: 0.875rem;
+                font-weight: 600;
+                text-decoration: underline;
+                text-underline-offset: 3px;
+                opacity: 0.75;
+                transition: opacity 0.2s ease;
+
+                &:hover { opacity: 1; }
+            }
+        }
+    }
+}
+
+@layer components {
+    .date-picker {
+        width: 100%;
+        max-width: 36rem;
+        max-height: 90svh;
+        border: none;
+        padding: 0;
+        background: #fff;
+        position: fixed;
+        inset: 0;
+        margin: auto;
+        overflow: hidden;
+
+        &::backdrop {
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        &__inner {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            max-height: 90svh;
+        }
+
+        &__close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.25rem;
+            line-height: 1;
+            padding: 0.25rem 0.5rem;
+            opacity: 0.5;
+            transition: opacity 0.2s ease;
+            &:hover { opacity: 1; }
+        }
+
+        &__title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            padding: 1.5rem 1.5rem 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            flex-shrink: 0;
+        }
+
+        &__list {
+            overflow-y: auto;
+            flex: 1;
+            padding: 1rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        &__month {
+            font-size: 0.8125rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            opacity: 0.5;
+            margin-top: 1rem;
+            margin-bottom: 0.25rem;
+
+            &:first-child { margin-top: 0; }
+        }
+
+        &__item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #e5e7eb;
+            cursor: pointer;
+            transition: border-color 0.15s ease, background 0.15s ease;
+
+            &:has(input:checked),
+            &--selected {
+                border-color: currentColor;
+                background: #f5f0eb;
+            }
+
+            &:hover { border-color: currentColor; }
+        }
+
+        &__radio {
+            display: none;
+        }
+
+        &__day {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        &__day-num {
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        &__day-name {
+            font-size: 0.6875rem;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        &__info {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        &__ticket-name {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        &__datetime {
+            font-size: 0.9375rem;
+            line-height: 1.3;
+        }
+
+        &__venue {
+            font-size: 0.8125rem;
+            opacity: 0.6;
+        }
+
+        &__footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #e5e7eb;
+            flex-shrink: 0;
+        }
+
+        &__cancel {
+            background: none;
+            border: 1px solid currentColor;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s ease;
+            &:hover { opacity: 1; }
+        }
+
+        &__done {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            &:disabled { opacity: 0.35; cursor: not-allowed; }
+        }
+
+        &__form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        &__form-row {
+            display: flex;
+            flex-direction: column;
+            gap: 0.375rem;
+
+            label {
+                font-size: 0.6875rem;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+
+            input {
+                padding: 0.75rem 1rem;
+                border: 1px solid currentColor;
+                background: transparent;
+                font-size: 1rem;
+                width: 100%;
+
+                &:focus { outline: 2px solid currentColor; }
+            }
+        }
+
+        &__error {
+            color: #c0392b;
+            font-size: 0.875rem;
+        }
+
+        &__success {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 3rem 1.5rem;
+            gap: 1rem;
+        }
+
+        &__success-icon {
+            font-size: 2.5rem;
+            line-height: 1;
+        }
+
+        &__atc {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        &__atc-label {
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            opacity: 0.5;
+        }
+
+        &__atc-btns {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        &__atc-btn {
+            background: none;
+            border: 1px solid currentColor;
+            padding: 0.5rem 1.25rem;
+            font-size: 0.8125rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            transition: opacity 0.2s ease;
+            opacity: 0.75;
+            &:hover { opacity: 1; }
+        }
+    }
+}
+
+@keyframes loading {
+	0% {
+		background-position: 100% 0;
+	}
+
+	100% {
+		background-position: -100% 0;
+	}
+}
+
+.dark-mode{
+	@apply bg-[#181818];
+
+	h1,h2,h3,h4,h5,h6 {
+		@apply text-[#EECA4F];
+	}
+	p{
+		@apply text-white;
+	}
+}
+
+.wp-singular .nav__wrapper .nav__menu{
+    display: none;
+}
+

@@ -1,0 +1,11 @@
+{
+	"name": "[[BLOCK_NAME]]",
+	"title": "[[BLOCK_TITLE]]",
+    "viewScript": ["file:./script.js"],
+    "viewStyle": [],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

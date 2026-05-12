@@ -1,0 +1,65 @@
+@layer base {
+  .footer {
+    &.template_b {
+      .footer__column-label {
+        @apply font-radley;
+      }
+    }
+    &.template_a {
+      .footer__column-label {
+        @apply font-fraunces;
+      }
+    }
+
+    &.template_c {
+      .footer__column-label {
+        @apply font-big-shoulders;
+      }
+    }
+    .footer__column-label {
+      @apply mb-[1.5rem];
+      color: #fff;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 91%;
+      letter-spacing: -0.72px;
+    }
+    .sub_footer {
+      @apply font-instrument uppercase;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 325;
+      line-height: 151%;
+      letter-spacing: 0.12px;
+    }
+    .footer_legal {
+      a,
+      p {
+        @apply font-instrument uppercase;
+        color: rgba(255, 255, 255, 0.82);
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 325;
+        line-height: 151%;
+        letter-spacing: 0.12px;
+        text-decoration: none;
+      }
+    }
+    .footer__group {
+      p {
+        @apply font-instrument;
+        color: #f3f9fa;
+        font-feature-settings:
+          "liga" off,
+          "clig" off;
+        font-family: "Instrument Sans";
+        font-size: var(--paragraph-small, 16px);
+        font-style: normal;
+        font-weight: 400;
+        line-height: 140%; /* 22.4px */
+      }
+    }
+  }
+}

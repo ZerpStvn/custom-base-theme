@@ -1,0 +1,9 @@
+{
+	"name": "content-rich-text",
+	"title": "Content Rich Text",
+    "viewScript": ["file:./script.js"],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php"
+	}
+}

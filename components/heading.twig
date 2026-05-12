@@ -1,0 +1,5 @@
+{% if value %}
+    {% set heading_tag = type ?: 'h1' %}
+
+    <{{ heading_tag }} class="{{ class }} {{ has_custom_style ? style }}">{{ value }}</{{ heading_tag }}>
+{% endif %}

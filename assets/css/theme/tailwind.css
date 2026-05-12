@@ -1,0 +1,46 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "typography";
+@import "header";
+@import "footer";
+@import "global";
+@import "image";
+@import "buttons";
+@import "dialog";
+@import "spacings";
+@import-glob "../../../blocks/**/*.css";
+
+
+@layer base {
+    * {
+        outline: none;
+        box-sizing: border-box;
+    }
+    
+    html {
+        @apply m-0 p-0 max-w-[100svw] min-w-full w-full h-[100svh] min-h-[100svh] max-h-[100svh] text-black text-[16px] min-[120rem]:text-[clamp(100%,0.90vw,300%)];
+
+        /* set default font here */
+        /* @apply font-barlow font-normal; */
+
+        overscroll-behavior: none;
+        scroll-behavior: none;
+    
+        @apply overflow-x-hidden;
+        @apply overflow-y-auto;
+    
+        &.disable-scrolling,
+        &:has(dialog[open]) {
+            @apply overflow-hidden;
+        }
+    }
+    
+    body {
+        @apply bg-none max-w-[inherit] min-w-[inherit] w-[inherit] m-0 p-0;
+        /* @apply overflow-hidden; */
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        box-sizing: border-box;
+    }
+}

@@ -1,0 +1,11 @@
+{
+	"name": "resources-grid",
+	"title": "Resources Grid",
+    "viewScript": ["file:./script.js"],
+    "viewStyle": ["jquery-ui-style"],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

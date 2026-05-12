@@ -1,0 +1,121 @@
+{# {{ function('dd', fields) }} #}
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }} bg-{{ fields.bg }}">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "st-xxl" %}
+	{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-xxl" %}
+
+	<div class="container relative z-[2]">
+		<div class="{{ pt }} {{ pb }}">
+			<div class="flex flex-col ~gap-[2.25rem]/[3rem]">
+				<div class="w-full max-md:flex max-md:flex-col max-md:gap-[0.75rem] md:max-w-[62.75rem] relative">
+					{% include 'components/eyebrow.twig' with {
+                        'class' : "md:absolute md:top-[0.625rem] left-0",
+                        'text': fields.eyebrow
+                    } %}
+
+					{% if fields.heading %}
+						{% include 'components/heading.twig' with {
+                            'class': 'main-title',
+                            'indent': '<span class="max-md:hidden w-[12.5rem] h-[2.5rem] shrink-0"></span>',
+                            'value': fields.heading.value, 
+                            'type': fields.heading.type != "default" ? fields.heading.type : "h3",
+                            'has_custom_style': fields.heading.has_custom_style,
+                            'style': fields.heading.style,
+                            'to_words': true
+                        } %}
+					{% endif %}
+				</div>
+
+				{% if fields.items|length %}
+					<div class="flex flex-col gap-[0.75rem]">
+						<div class="box rounded-[0.5rem] h-auto sm:h-[38.75rem] max-sm:pb-0 ~p-[2.25rem]/[3rem] bg-black relative overflow-hidden max-sm:flex max-sm:flex-col max-sm:gap-[1.25rem]">
+							<div class="w-full relative h-full z-[3]">
+								{% for index, item in fields.items %}
+									<div class="item {{ index == 0 ? " active" }}" data-index="{{ index }}">
+										<div class="flex flex-col ~gap-[1.25rem]/[1.5rem] md:max-w-[calc(100%-10rem)] lg:max-w-[35.5rem] relative z-[2]">
+											{% if item.heading %}
+												{% include 'components/heading.twig' with {
+                                                'class': 'text-white',
+                                                'value': item.heading, 
+                                                'type': "h4",
+                                                'to_words': true
+                                            } %}
+											{% endif %}
+
+											{% if item.paragraph %}
+												<p class="item-para text-white w-full">
+													{{ item.paragraph }}
+												</p>
+											{% endif %}
+
+											<div class="item-cta">
+												{% include 'components/cta.twig' with {
+                                                    'class' : 'has-border white',
+                                                    'cta': item.cta, 
+                                                    'icon': true,
+                                                } %}
+											</div>
+										</div>
+
+										{% if item.image %}
+											<div class="parallax item-image">
+												{% include 'components/image.twig' with {
+                                                'image': item.image,
+                                                'class': "object-contain",
+                                                'size': [655, 655],
+                                            } %}
+											</div>
+										{% endif %}
+									</div>
+								{% endfor %}
+							</div>
+
+							<div class="arrows desktop">
+								<div class="arrow-left ar-l">
+									<svg viewbox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M6 16L14.3333 8L15.5083 9.128L9.19167 15.2L26 15.2L26 16.8L9.19167 16.8L15.5083 22.872L14.3333 24L6 16Z" fill="white"/>
+									</svg>
+								</div>
+
+								<div class="arrow-right ar-r">
+									<svg viewbox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M6 16L14.3333 8L15.5083 9.128L9.19167 15.2L26 15.2L26 16.8L9.19167 16.8L15.5083 22.872L14.3333 24L6 16Z" fill="white"/>
+									</svg>
+								</div>
+							</div>
+
+							<div class="orb">
+								<img class="object-contain" loading="lazy" src="{{ function("webp", "orb-green") }}" alt="moving orb">
+							</div>
+
+							<div class="absolute top-0 left-0 h-full w-full z-[1] max-sm:opacity-[0.6]">
+								<img class="sm:object-contain object-top w-auto sm:w-full h-full sm:h-auto" loading="lazy" src="{{ function("svg", "grid") }}" alt="background grid">
+							</div>
+						</div>
+
+						<div class="md:hidden flex shrink-0 gap-[0.75rem] max-lg:justify-between">
+							<div class="ar-l ~w-[3.5rem]/[4rem] ~h-[3.5rem]/[4rem] bg-white rounded-[50%] cursor-pointer flex items-center justify-center hover:bg-green transition-colors duration-300 ease-[ease]">
+								<svg class="w-[1.5rem] h-[1.5rem]" width="24" height="25" viewbox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M15 18.76L9 12.76L15 6.76001" stroke="#262626"/>
+								</svg>
+							</div>
+
+							<div class="ar-r ~w-[3.5rem]/[4rem] ~h-[3.5rem]/[4rem] bg-white rounded-[50%] cursor-pointer flex items-center justify-center hover:bg-green transition-colors duration-300 ease-[ease]">
+								<svg class="w-[1.5rem] h-[1.5rem]" width="24" height="25" viewbox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M9 6.76001L15 12.76L9 18.76" stroke="#262626"/>
+								</svg>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endcache %}

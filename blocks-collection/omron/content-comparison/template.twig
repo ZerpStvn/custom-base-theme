@@ -1,0 +1,87 @@
+{% cache "block;" ~ post.id ~ ";" ~ block.id ~ ";" ~ post.modified_timestamp ~ ";" ~ cache_key %}
+
+<section class="{{ block.slug }} bg-{{ fields.bg }}">
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "st-xl" %}
+	{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-xl" %}
+
+	<div class="container">
+		<div class="{{ pt }} {{ pb }}">
+			<div class="flex flex-col ~gap-[1.25rem]/[1.5rem]">
+				{% if fields.heading %}
+					{% include 'components/heading.twig' with {
+                        'class': 'main-title',
+                        'value': fields.heading.value, 
+                        'type': fields.heading.type != "default" ? fields.heading.type : "h5",
+                        'has_custom_style': fields.heading.has_custom_style,
+                        'style': fields.heading.style,
+                        'to_words': true
+                    } %}
+				{% endif %}
+
+				{% if fields.rows|length %}
+					<div class="table-outer">
+						{% set col_count = fields.rows[0].cell|length %}
+						{% set has_overflow = col_count > 4 %}
+
+						<table class="{{ has_overflow ? "has-overflow" }}" cellpadding="0" cellspacing="0" and border="0" style="min-width: {{ has_overflow ? col_count * 21 ~ "rem" : " auto" }}">
+							{% for row in fields.rows %}
+								{% if row.cell|length %}
+									<tr>
+										{% for cell in row.cell %}
+											{% set width = 100 / loop.length %}
+											{% set cta = cell.cta %}
+
+											{% if cell.type == 'heading' %}
+												<th width="{{ width }}%">
+													<div class="cell">
+														{% if cell.image %}
+															<div class="h-[7.625rem] w-full max-w-[7.875rem]">
+																{% include 'components/image.twig' with {
+                                                                    'image': cell.image,
+                                                                    'class': "object-contain mix-blend-multiply",
+                                                                    'size': [121, 100],
+                                                                } %}
+															</div>
+														{% endif %}
+
+														{% if cell.title %}
+															<p class="lg">{{ cell.title }}</p>
+														{% endif %}
+
+														{% if cta %}
+															{% set link_url = cta.url ?: "#" %}
+															{% set link_title = cta.title %}
+															{% set link_target = cta.target ?: "_self" %}
+
+															<a class="text-blue underline-offset-[0.125rem] hover:underline decoration-[0.0625rem]" href="{{ link_url }}" target="{{ link_target }}">
+																<p>{{ link_title }}</p>
+															</a>
+														{% endif %}
+													</div>
+												</th>
+											{% else %}
+												<td>
+													<div class="cell">
+														{% if cell.paragraph %}
+															<p class="whitespace-pre">{{ cell.paragraph }}</p>
+														{% endif %}
+													</div>
+												</td>
+											{% endif %}
+										{% endfor %}
+									</tr>
+								{% endif %}
+							{% endfor %}
+						</table>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% endcache %}

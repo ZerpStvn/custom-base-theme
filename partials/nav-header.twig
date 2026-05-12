@@ -1,0 +1,57 @@
+<nav class="nav {{ override_nav_theme ? nav_theme : function(" is_404") ? " dark" : function(" is_front_page") ? " light" : " regular" }}">
+	<div class="nav__outer">
+		<div class="container">
+			<div class="nav__wrapper">
+				{% for item in header_nav_item %}
+					{# Resolve per-template fields into single variables #}
+					{% if item.template == 'template_a' %}
+						{% set active_logo = item.logo %}
+						{% set active_menu = item.menu %}
+						{% set active_cta  = item.cta %}
+					{% elseif item.template == 'template_b' %}
+						{% set active_logo = item.logo_b %}
+						{% set active_menu = item.menu_b %}
+						{% set active_cta  = item.cta_b %}
+					{% elseif item.template == 'template_c' %}
+						{% set active_logo = item.logo_c %}
+						{% set active_menu = item.menu_c %}
+						{% set active_cta  = item.cta_c %}
+					{% endif %}
+
+					<div class="nav__item {{ item.template }}">
+
+						{% if active_logo %}
+							<a class="nav__logo" href="{{ site.url }}">
+								{% include 'components/image.twig' with {
+									'image': active_logo,
+									'class': 'nav__logo-img object-contain',
+								} %}
+							</a>
+						{% endif %}
+
+						{% if active_menu %}
+							<ul class="nav__menu">
+								{% for menu_item in active_menu %}
+									<li class="nav__menu-item">
+										<a href="{{ menu_item.link.url }}"{% if menu_item.link.target %} target="{{ menu_item.link.target }}"{% endif %}>
+											{{ menu_item.link.title }}
+										</a>
+									</li>
+								{% endfor %}
+							</ul>
+						{% endif %}
+
+						{% if active_cta %}
+							<a class="nav__cta btn btn-secondary" href="{{ active_cta.url }}"{% if active_cta.target %} target="{{ active_cta.target }}"{% endif %}>
+								{{ active_cta.title }}
+							</a>
+						{% endif %}
+
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<div class="nav__overlay"></div>
+</nav>

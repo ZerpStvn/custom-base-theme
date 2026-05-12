@@ -1,0 +1,89 @@
+@layer components {
+	.content-products-carousel {
+		.item {
+			@apply max-md:flex-col ~gap-[2.25rem]/[1.25rem] flex items-end absolute top-0 left-0 h-full w-full opacity-0 transition-opacity duration-[300ms] ease-[ease];
+
+			&.active {
+				@apply opacity-100 relative;
+			}
+
+			&:not(.active) {
+				@apply pointer-events-none;
+
+				h4,
+				.item-para,
+				.item-cta,
+				.item-image img,
+				.arrows.mobile {
+					@apply opacity-0;
+				}
+
+				.item-image img {
+					@apply translate-x-[20%];
+				}
+			}
+
+			h4,
+			.item-para,
+			.item-cta,
+			.item-image img,
+			.arrows.mobile {
+				@apply transition-all duration-[800ms] ease-[ease] delay-300;
+			}
+
+			.item-image {
+				@apply pointer-events-none w-full md:w-[40.875rem] h-[15.625rem] md:h-[40.875rem] md:absolute md:bottom-[-9.4rem] md:left-[50%] max-md:mx-auto max-md:!transform-none max-lg:!translate-x-[-40%] lg:translate-x-[-40%];
+
+				img {
+					@apply object-top max-md:h-auto max-md:w-full;
+				}
+			}
+		}
+
+		.arrows {
+			@apply flex gap-[0.75rem] md:right-[3rem] md:bottom-[7.125rem] md:absolute z-[4] opacity-0 pointer-events-none max-md:mr-auto;
+
+			&.active {
+				@apply pointer-events-auto opacity-100;
+			}
+
+			&.desktop {
+				@apply max-md:hidden;
+			}
+
+			&.mobile {
+				@apply md:hidden;
+			}
+		}
+
+		.arrow-left,
+		.arrow-right {
+			@apply rounded-[50%] border-[0.0625rem] border-white-20 h-[3rem] w-[3rem] flex items-center justify-center cursor-pointer;
+			@apply transition-all duration-300 ease-[ease] hover:bg-white hover:hover:border-white hover:scale-[110%];
+
+			svg {
+				@apply h-[2rem] w-[2rem];
+
+				path {
+					@apply transition-colors duration-300 ease-in-out;
+				}
+			}
+
+			&:hover {
+				svg path {
+					@apply fill-black;
+				}
+			}
+		}
+
+		.arrow-right {
+			svg {
+				@apply scale-x-[-1];
+			}
+		}
+
+		.orb {
+			@apply absolute top-0 left-0 w-[62.5rem] h-[62.5rem] z-[2] max-md:!visible max-md:!opacity-100 md:opacity-0 md:scale-[0.8] pointer-events-none max-md:left-[50%] max-md:!translate-x-[-50%] max-md:top-[-26%];
+		}
+	}
+}

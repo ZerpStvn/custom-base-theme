@@ -1,0 +1,45 @@
+<section id="{{fields.anchor_id}}" class="{{ block.slug }} relative h-[100vh] md:h-[104vh]">
+	{% set layout = fields.layout %}
+
+	{% if layout == 'layout_a' %}
+		{% set font = 'font-fraunces' %}
+	{% elseif layout == 'layout_b' %}
+		{% set font = 'font-radley' %}
+	{% else %}
+		{% set font = 'font-big-shoulders' %}
+	{% endif %}
+
+	{% if block.anchor %}
+		<div class="section-anchor" id="{{ block.anchor ?? block.id }}"></div>
+	{% endif %}
+
+	{% set pt = fields.padding_top and fields.padding_top != "unset" ? fields.padding_top : "st-xl" %}
+	{% set pb = fields.padding_top and fields.padding_bottom != "unset" ? fields.padding_bottom : "sb-xl" %}
+	{% if fields.background_image %}
+		<div class="absolute top-[-1.875rem] {{layout == 'layout_c' ? 'h-[104%]': 'h-full'}} w-full" data-hero-bg>
+			{% include "components/image.twig" with {
+				image: fields.background_image,
+				class: "w-full h-full object-cover",
+				loading: "eager",
+				fetchpriority: "high",
+				decoding: "async"
+			} only %}
+		</div>
+	{% endif %}
+	<div class="container h-full">
+		<div class="flex flex-col items-center justify-center h-full">
+			<div class="{{ pt }} {{ pb }}">
+				<div class="relative flex max-w-[53rem] w-full flex-col gap-[.875rem] items-center justify-center">
+					{% if fields.eyebrow %}
+						<p class="eyebrow  text-white">{{ fields.eyebrow }}</p>
+					{% endif %}
+					{% if fields.heading %}
+						<h1 class=" {{ font }} text-center text-white">{{ fields.heading }}</h1>
+					{% endif %}
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

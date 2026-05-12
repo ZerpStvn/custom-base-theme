@@ -1,0 +1,17 @@
+{
+	"colors": {
+		"white-20": "#FFFFFF33",
+		"white-60": "rgba(255, 255, 255, 0.60)",
+		"blue": "#1263FF",
+		"green": "#6AFF96",
+		"black": "#262626",
+        "black-20": "#8f8f8f33",
+		"black-60": "#26262699",
+		"beige": "#F8F7F2",
+		"gray-20": "#8F8F8F99",
+        "grey-60": "rgba(143, 143, 143, 0.60)",
+        "gray-2": "#B6B5B1",
+        "teal": "#13353D"
+	},
+	"corners": "8px"
+}

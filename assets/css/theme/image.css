@@ -1,0 +1,31 @@
+@layer base {
+    img {
+        @apply h-full w-full object-cover;
+    }
+}
+
+@layer components {
+    .image-scale {
+        @apply overflow-hidden;
+    
+        img {
+            @apply scale-100 transition-transform duration-[800ms] ease-in-out;
+        }
+    
+        &:hover {
+            img {
+                @apply scale-[105%];
+            }
+        }
+    }
+    
+    .image-trigger {
+        &:hover {
+            .image-scale {
+                img {
+                    @apply scale-[105%];
+                }
+            }
+        }
+    }
+}

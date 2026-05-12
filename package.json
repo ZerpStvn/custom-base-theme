@@ -1,0 +1,21 @@
+{
+	"devDependencies": {
+		"autoprefixer": "latest",
+		"fluid-tailwind": "latest",
+		"postcss": "latest",
+		"postcss-import": "latest",
+		"postcss-import-ext-glob": "latest",
+		"postcss-nested": "latest",
+		"postcss-nesting": "latest",
+		"tailwindcss": "3.4.17"
+	},
+	"scripts": {
+		"tw": "npx tailwindcss -i assets/css/theme/tailwind.css -o assets/css/theme/styles.css --postcss --watch --poll --minify",
+		"build": "npx tailwindcss -i assets/css/theme/tailwind.css -o assets/css/theme/styles.css --postcss --minify",
+		"create-block": "node create-block.js",
+		"cb": "node create-block.js"
+	},
+	"dependencies": {
+		"fs-extra": "^11.3.0"
+	}
+}

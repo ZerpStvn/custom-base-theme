@@ -1,0 +1,11 @@
+{
+	"name": "content-cards-icon-hover",
+	"title": "Content Cards Icon Hover",
+    "viewScript": ["file:./script.js"],
+    "viewStyle": [],
+	"acf": {
+		"mode": "edit",
+		"renderTemplate": "./controller.php",
+        "postTypes": ["page"]
+	}
+}

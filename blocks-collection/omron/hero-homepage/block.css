@@ -1,0 +1,26 @@
+@layer components {
+	.hero-homepage {
+		@apply bg-black;
+
+		.gradient-bg {
+			@apply absolute top-0 left-0 h-full w-full z-[2];
+			background: linear-gradient(
+				0deg,
+				rgba(0, 0, 0, 0.3) 0%,
+				rgba(0, 0, 0, 0.3) 100%
+			);
+		}
+
+		.video-container {
+			@apply absolute top-0 left-0 h-full w-full pointer-events-none bg-[#000] z-[1] overflow-hidden opacity-0 invisible translate-x-[60%];
+		}
+
+		iframe {
+			@apply absolute center-xy max-w-[unset] w-full aspect-video;
+			/* height: calc((100dvw * 9) / 16); */
+			min-height: 100svh;
+			width: calc((100svh * 22) / 9);
+			min-height: 100%;
+		}
+	}
+}

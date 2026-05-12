@@ -1,0 +1,44 @@
+body.admin-bar #wphead {
+	padding-top: 0 !important;
+}
+html {
+    margin-top: 0 !important;
+}
+#wpadminbar {
+	top: auto !important;
+	bottom: 0;
+	position: fixed;
+}
+#wpadminbar .quicklinks .menupop ul {
+	position: absolute;
+	bottom: 32px;
+	background-color: #23282d;
+}
+#wpadminbar .quicklinks .menupop ul + ul {
+	bottom: 70px;
+}
+#wpadminbar .quicklinks .menupop ul ul {
+	transform: translateY(62px);
+	-webkit-transform: translateY(62px);
+	-ms-transform: translateY(62px);
+}
+#wpadminbar .quicklinks .menupop ul.ab-sub-secondary {
+	bottom: 64px;
+	position: absolute;
+}
+@media screen and (max-width: 782px) {
+	#wpadminbar .quicklinks .menupop ul {
+		bottom: 46px;
+	}
+
+	#wpadminbar .quicklinks .menupop ul + ul,
+	#wpadminbar .quicklinks .menupop ul.ab-sub-secondary {
+		bottom: 86px;
+	}
+
+	#wpadminbar .quicklinks .menupop ul ul {
+		transform: translateY(92px);
+		-webkit-transform: translateY(92px);
+		-ms-transform: translateY(92px);
+	}
+}

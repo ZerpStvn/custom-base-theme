@@ -1,0 +1,42 @@
+@layer components {
+	.resources-featured-block {
+		.items {
+			@apply relative md:pt-[4.375rem] max-md:gap-[1.5rem] max-md:flex max-md:flex-col;
+		}
+
+		.item {
+			@apply flex max-md:flex-col md:gap-[3.5rem] items-center justify-between;
+			@apply transition-opacity ease-[ease] duration-500;
+
+			&.active {
+				.item-content,
+				.item-image {
+					@apply opacity-100;
+				}
+
+				.item-image {
+					@apply transition-opacity ease-[ease] duration-[800ms] max-md:h-[14.25rem];
+				}
+
+				&:not(:nth-child(1)) {
+					.item-image {
+						@apply max-md:my-[1.5rem];
+					}
+				}
+			}
+		}
+
+		.item-content {
+			@apply md:flex-1 ~py-[1.25rem]/[1.5rem] border-b-[0.0625rem] border-grey-60;
+			@apply transition-opacity ease-[ease] duration-[800ms];
+		}
+
+		.item-content {
+			@apply md:opacity-30;
+		}
+
+		.item-image {
+			@apply md:opacity-0 md:flex-1 self-stretch pointer-events-none max-md:h-[14.25rem];
+		}
+	}
+}

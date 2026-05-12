@@ -1,0 +1,64 @@
+
+			{% if primary_footer_nav_columns|length %}
+				<div class="footer__columns">
+					{% for nav_column in primary_footer_nav_columns %}
+						<div class="footer__column">
+							{% if nav_column.label %}
+								<p class="footer__column-label">{{ nav_column.label }}</p>
+							{% endif %}
+
+							{% if nav_column.content %}
+								<div class="footer__group">{{ nav_column.content }}</div>
+							{% endif %}
+
+							{% if loop.last %}
+								{% if footer_social|length %}
+									<div class="footer__socials desktop">
+										{% if footer_social_label %}
+											<p class="text-white sm">{{ footer_social_label }}</p>
+										{% endif %}
+
+										<div class="footer__socials-inner">
+											{% for social in footer_social %}
+												{% set social_icon = social.icon %}
+												{% set social_link = social.link ?: "#" %}
+
+												<a href="{{ social_link|lower }}" target="_blank" class="footer__social" rel="nofollow noreferrer noopen">
+													{% include 'components/image.twig' with {
+                                                        'image': social_icon,
+                                                        'class': 'object-contain',
+                                                        'size': "full",
+                                                    } %}
+												</a>
+											{% endfor %}
+										</div>
+									</div>
+								{% endif %}
+							{% endif %}
+						</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+
+			{% if footer_social|length %}
+				<div class="footer__socials mobile">
+					{% if footer_social_label %}
+						<p class="text-white sm">{{ footer_social_label }}</p>
+					{% endif %}
+
+					<div class="footer__socials-inner">
+						{% for social in footer_social %}
+							{% set social_icon = social.icon %}
+							{% set social_link = social.link ?: "#" %}
+
+							<a href="{{ social_link|lower }}" target="_blank" class="footer__social" rel="nofollow noreferrer noopen">
+								{% include 'components/image.twig' with {
+                                    'image': social_icon,
+                                    'class': 'object-contain',
+                                    'size': "full",
+                                } %}
+							</a>
+						{% endfor %}
+					</div>
+				</div>
+			{% endif %}
