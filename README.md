@@ -56,7 +56,7 @@ Accepted values: `development`, `staging`, `production`
 ### 2. Install Node dependencies
 
 ```bash
-cd wp-content/themes/baunfire
+cd wp-content/themes/{themename}
 npm install
 ```
 
@@ -89,7 +89,7 @@ npm run build
 ## Theme Structure
 
 ```
-themes/baunfire/
+themes/{themename}/
 ├── acf-json/               # ACF field group JSON exports (auto-sync)
 ├── assets/
 │   ├── css/
